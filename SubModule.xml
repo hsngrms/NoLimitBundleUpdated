@@ -1,0 +1,25 @@
+﻿<Module>
+  <Name value="No Limit Bundle Updated"/>
+  <Id value="NoLimitBundleUpdated"/>
+  <Version value="v2.0.0"/>
+  <SingleplayerModule value="true"/>
+  <MultiplayerModule value="false"/>
+  <DependedModules>
+    <DependedModule Id="Native"/>
+    <DependedModule Id="SandBoxCore"/>
+    <DependedModule Id="Sandbox"/>
+    <DependedModule Id="StoryMode" />
+  </DependedModules>
+  <SubModules>
+    <SubModule>
+      <Name value="NoLimitBundleUpdated"/>
+      <DLLName value="NoLimitBundleUpdated.dll"/>
+      <SubModuleClassType value="NoLimitBundleUpdated.SubModule"/>
+      <Tags>
+        <Tag key="DedicatedServerType" value="none" />
+        <Tag key="IsNoRenderModeElement" value="false" />
+      </Tags>
+    </SubModule>
+  </SubModules>
+  <Xmls/>
+</Module>
