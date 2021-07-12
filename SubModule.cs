@@ -4,6 +4,7 @@ using TaleWorlds.MountAndBlade;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.SandBox.GameComponents;
 using TaleWorlds.CampaignSystem.SandBox.GameComponents.Party;
+using TaleWorlds.CampaignSystem.SandBox.GameComponents.Map;
 
 namespace NoLimitBundleUpdated
     {
@@ -21,7 +22,7 @@ namespace NoLimitBundleUpdated
             }
         }
 
-    [HarmonyPatch(typeof(DefaultClanTierModel), "GetCompanionLimitForTier")]
+    [HarmonyPatch(typeof(DefaultClanTierModel), "GetCompanionLimit")]
     internal class CompanionLimitOverride
         {
         public static void Postfix(ref int __result)
@@ -40,18 +41,35 @@ namespace NoLimitBundleUpdated
     [HarmonyPatch(typeof(DefaultPartySizeLimitModel), "GetPartyMemberSizeLimit")]
     internal class PartyMemberSizeLimitOverride
         {
-        public static void Postfix(ref int __result, PartyBase party)
+        public static void Postfix(ref ExplainedNumber __result, PartyBase party)
             {
+            ExplainedNumber explainedNumber = new ExplainedNumber(9999f, false, null);
             if (party.IsMobile && party.MobileParty.IsMainParty)
                 {
                 try
                     {
-                    __result = 9999;
+                    __result = explainedNumber;
                     }
                 catch (System.Exception)
                     {
                     InformationManager.DisplayMessage(new InformationMessage(" Oops... Something went terribly wrong because of PartyMemberSizeLimitOverride ! "));
                     }
+                }
+            }
+        }
+
+    [HarmonyPatch(typeof(DefaultDiplomacyModel), "GetScoreOfClanToJoinKingdom")]
+    internal class PartyCountLimitOverrideFix
+        {
+        public static void Postfix(ref float __result)
+            {
+            try
+                {
+                __result = -1f;
+                }
+            catch (System.Exception)
+                {
+                InformationManager.DisplayMessage(new InformationMessage(" Oops... Something went terribly wrong because of PartyCountLimitOverrideFix ! "));
                 }
             }
         }
@@ -75,13 +93,14 @@ namespace NoLimitBundleUpdated
     [HarmonyPatch(typeof(DefaultPartySizeLimitModel), "GetPartyPrisonerSizeLimit")]
     internal class PartyPrisonerSizeLimitOverride
         {
-        public static void Postfix(ref int __result, PartyBase party)
+        public static void Postfix(ref ExplainedNumber __result, PartyBase party)
             {
+            ExplainedNumber explainedNumber = new ExplainedNumber(9999f, false, null);
             if (party.IsMobile && party.MobileParty.IsMainParty)
                 {
                 try
                     {
-                    __result = 9999;
+                    __result = explainedNumber;
                     }
                 catch (System.Exception)
                     {
